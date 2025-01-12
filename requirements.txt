@@ -1,0 +1,9 @@
+beautifulsoup4==4.12.2
+requests==2.31.0
+Flask==2.0.1
+python-dotenv==1.0.0
+selenium==4.1.0
+webdriver_manager==3.8.6
+Flask-SQLAlchemy==3.1.1
+chromedriver-autoinstaller==0.6.2
+konlpy==0.6.0

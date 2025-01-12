@@ -33,12 +33,12 @@ jobs:
       uses: google-github-actions/setup-gcloud@v1
 
     - name: Authorize Docker push
-      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+      run: gcloud auth configure-docker asia-northeast3-docker.pkg.dev
 
     - name: Build and Push Container
       run: |-
-        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/app:${{ github.sha }} .
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/app:${{ github.sha }}
+        docker build -t asia-northeast3-docker.pkg.dev/${{ env.PROJECT_ID }}/newsletter/newsletter:${{ github.sha }} .
+        docker push asia-northeast3-docker.pkg.dev/${{ env.PROJECT_ID }}/newsletter/newsletter:${{ github.sha }}
 
     - name: Deploy to Cloud Run
       id: deploy
@@ -46,7 +46,7 @@ jobs:
       with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.REGION }}
-        image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/app:${{ github.sha }}
+        image: asia-northeast3-docker.pkg.dev/${{ env.PROJECT_ID }}/newsletter/newsletter:${{ github.sha }}
 
     - name: Show Output
       run: echo ${{ steps.deploy.outputs.url }}

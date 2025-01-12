@@ -32,7 +32,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@v1
 
     - name: Authorize Docker push
-      run: gcloud auth configure-docker asia-northeast3-docker.pkg.dev
+      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
     - name: Build and Push Container
       run: |-
@@ -40,8 +40,12 @@ jobs:
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/app:${{ github.sha }}
 
     - name: Deploy to Cloud Run
+      id: deploy
       uses: google-github-actions/deploy-cloudrun@v1
       with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.REGION }}
         image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/app:${{ github.sha }}
+
+    - name: Show Output
+      run: echo ${{ steps.deploy.outputs.url }}

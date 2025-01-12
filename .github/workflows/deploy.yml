@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: shining-env-446009-p3
   REGION: asia-northeast3
-  SERVICE_NAME: newsletter
+  SERVICE_NAME: newsletter-app
 
 jobs:
   deploy:
